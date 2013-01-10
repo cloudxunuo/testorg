@@ -11,6 +11,9 @@
 	  $("#dataTablesItem").click(function(){
 	  	$("#content").load("jsp/dataTable.html");
 	  });
+	  $("#formValidatorItem").click(function(){
+	  	$("#content").load("jsp/formValidatorTest.jsp");
+	  });
 	});
 	</script>
   </head>
