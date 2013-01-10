@@ -1,0 +1,120 @@
+
+body {
+	margin: 0px;
+	padding: 0px;
+	color : #333;
+	background-color : #FFF;
+	font-size : 12px;
+	font-family :  Helvetica, sans-serif,Arial;
+}
+
+form {
+    margin: 0px;
+}
+
+
+button {
+	border : solid 1px #cccccc;
+	background: #E9ECEF;
+	color : #666666;
+	font-weight : bold;
+	font-size : 10px;
+	font-family : Arial, Helvetica, sans-serif;
+	padding: 4px;
+}
+
+h1{
+	font-size : 12px;
+	font-family :  Helvetica, sans-serif,Arial;
+}
+
+td,a {
+	font-size : 12px;
+	font-family :  Helvetica, sans-serif,Arial;
+
+}
+th {
+	font-size: 12px;
+	background-color: #EEEEEE;
+    	color: #000000;
+    	line-height: 150%;
+	font-family :  Helvetica, sans-serif,Arial;
+}
+
+.tabtd1 {  background-color: #FFFFFF}
+.tabtd2 {  background-color: #ccccff}
+
+.lineinput1 {
+  background-color: #FFFFFF;
+  border-style: solid;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 1px;
+  border-left-width: 0px
+  }
+
+.lineinput2 {
+  background-color: #ccccff;
+  border-style: solid;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 1px;
+  border-left-width: 0px
+  }
+
+.tabletitle {
+  font-family: "ËÎÌו";
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-decoration: none;
+  background-color: #0079BD;
+  text-align: center
+  }
+
+.ifcolor {
+  border-color: #31659c #31659C #31659C;
+  border-style: solid;
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-left-width: 1px
+  }
+
+
+
+.TA {scrollbar-3d-light-color:;
+           scrollbar-arrow-color:white;
+           scrollbar-base-color:#6699cc;
+           scrollbar-dark-shadow-color:#6699cc;
+           scrollbar-face-color:;
+           scrollbar-highlight-color:white;
+           scrollbar-shadow-color:white}
+
+
+.sec1 {
+    background-color: #EEEEEE;
+    cursor: hand;
+    color: #000000;
+    border-left: 1px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid #FFFFFF
+    }
+.sec2 {
+    background-color: #D4D0C8;
+    cursor: hand;
+    color: #000000;
+    border-left: 1px solid #FFFFFF;
+    border-top: 1px solid #FFFFFF;
+    border-right: 1px solid gray;
+    font-weight: bold;
+    }
+.main_tab {
+    background-color: #D4D0C8;
+    color: #000000;
+    border-left:1px solid #FFFFFF;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    }

@@ -1,0 +1,35 @@
+.tab 
+{ 
+background-color: #FAFAFA; 
+margin: 5px 8px; 
+padding: 5px 10px;
+} 
+.tab p span 
+{
+background-color: #EFEFEF; 
+border: 1px solid #CCCCCC; 
+cursor: pointer; 
+margin-right: 6px; 
+padding: 2px 5px; 
+} 
+.tab p span.current 
+{ 
+background-color: #FAFAFA; 
+border-bottom-color: #fafafa; 
+} 
+.tab p 
+{ 
+border-bottom: 1px solid #CCCCCC; 
+font-weight: bold; 
+padding: 0 10px 2px; 
+} 
+.tab a
+{ 
+border-bottom: 1px dotted #CCCCCC; 
+padding-bottom: 3px; 
+margin: 5px 0; 
+} 
+.tab .mhot, .tab.allhot 
+{ 
+display: none; 
+} 

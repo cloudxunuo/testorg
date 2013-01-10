@@ -1,0 +1,162 @@
+td {  font-family: "����"; font-size: 12px; line-height: 20px; color: #000000; text-decoration: none}
+.tabtitletd {  font-family: "����"; font-size: 12px; line-height: 20px; font-weight: bold; color: #FFFFFF; text-decoration: none; background-color: #0079BD; text-align: center}
+
+.tabtd1 {  background-color: #FFFFFF}
+.tabtd2 {  background-color: #eeeeee}
+a:link {  color: #2E448F; text-decoration: none}
+a:visited {  font-family: "#2E448F"; text-decoration: none}
+a:hover {  color: #FF0000; text-decoration: none}
+body {  font-family: "����"; background-color: #FFFFFF}
+.contenttitle {  font-family: "����"; font-size: 13px; font-weight: bold; color: #000000; text-decoration: none}
+.tabline {  background-color: #666666}
+input { font-family: "����"; font-size: 12px;border-left-style: none; border-left-width: 0; border-right-style: none; border-right-width: 0; border-top-style: none; border-top-width: 0; border-bottom-style: solid; border-bottom-width: 1}
+select { font-family: ����; font-size: 12px;border-width: 0}
+form { font-family: ����; font-size: 12px}
+.box{background:#F7F7E7; foreground:#002052; position:absolute;border:1px solid #ffcc00;}
+.subBox{background:#F7F7E7; foreground:#002052; position:absolute;border:1px solid #0x666666;}
+.button { font-family: ����; font-size: 12px}
+.input { font-family: "����"; font-size: 12px;border-left-style: none; border-right-style: none; border-top-style: none; border-bottom-style: solid; border-top-width: 0; border-right-width: 0; border-bottom-width: 1; border-left-width: 0}
+.showtext { font-family: ����; font-size: 12px;border-left-style: none; border-left-width: 0; border-right-style: none; border-right-width: 0; border-top-style: none; border-top-width: 0; border-bottom-style: solid; border-bottom-width: 0;}
+
+.selectwhite {  font-family: "����"; font-size: 12px; color: #000000; background-color: #FFFFFF}
+.redcolor {  color: #FF0000}
+.epdtabline {  background-color: #eeeeee; border: 1px #666666 solid}
+.epdinsidetab {  background-color: #666666}
+.epdinsidetd {  background-color: #FFFFFF}
+.epdinput {  border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.epdinputpage {  background-color: #eeeeee; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.epdselect {  font-family: "����"; font-size: 12px; line-height: 20px; color: #000000; background-color: #eeeeee}
+.wfsinput {  border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.scginput1 {  background-color: #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.scginput2 {  background-color: #eeeeee; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.scgtopline {  border: 1px #31659c solid; background-color: #FFFFFF}
+.scgtabline {  background-color: #eeeeee; border: #666666; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.scginputpage {  background-color: #eeeeee}
+.scginput {  background-color: #eeeeee}
+.scginsidetab {  background-color: #666666}
+.scgradio {  border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.wfstd {  background-color: #eeeeee}
+.wfsinputblue {  border: 1px #000084 solid; font-size: 12px; vertical-align: middle}
+.wfsemail {  background-color: #eeeeee; border: #666666; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.wfstabline { background-color: #eeeeee; border: 1px #666666 solid }
+.epddateinput {  font-size: 12px; background-color: #CEE3F7; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.epddateinput1 {  font-weight: bold; font-size: 14px; background-color: #CEE3F7; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.epddatebg {  background-color: #CCE0F0}
+.epddatetitle {  font-family: "����"; font-size: 12px; color: #FFFFFF; text-decoration: none; background-color: #4282C6; background-position: center}
+a.epddate:link {  color: #FFFFFF; text-decoration: none}
+a.epddate:visited {  color: #FFFFFF; text-decoration: none}
+a.epddate:hover {  color: #FF0000; text-decoration: none}
+.epddatebutton {  background-color: #CEE3F7; border: 1px solid; border-color: #FFFFFF #666666 #636563 #FFFFFF}
+.epdgraybg {  background-color: #EFEFEF}
+.div{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:50;height:100}
+.span{
+CURSOR: hand;
+}
+.div1{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:80;height:100}
+.div6{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:50;height:60}
+.div2{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:90;height:100}
+.div3{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:10;height:60}
+.span{
+CURSOR: hand;
+}
+.div4{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:90;height:100}
+.divCursor{cursor:hand}
+.epdinputpage1 {  background-color: #FFFFFF; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.epdinputpage2 {  background-color: #eeeeee; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.epdinputpage3 {  background-color: #FFFFFF; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.epdinputpage4 {  background-color: #eeeeee; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.epdinputpage5 {  background-color: #FFFFFF; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.inputRow1 {  background-color: #FFFFFF; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.inputRow2 {  background-color: #eeeeee; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.worktr {  background-color: #ffffff}
+.workinput {  background-color: #ffffff}
+.wfsnewtab {  border: none; background-color: #FFFFFF}
+.wfsnewtabtitle {  background-color: #6699cc; color: #FFFFFF}
+.wfsnewtabtd {  background-color: #DEDFDE}
+.wfsnewtab2 {  background-color: #eeeeee}
+.wfsnewtabtd2 {  background-color: #eeeeee}
+.wfsnewtabtd3 { background-color: #FFFFFF}
+.worktrselect { background-color: #ffffff }
+.wfsarrow {  font-family: "Webdings"; color: #31659C; background-color: #DEDFDE}
+.scginputpagenl {  background-color: #eeeeee; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.wfsbutton {  background-color: #639ACE; border-color: #FFFFFF #31659c #31659c #FFFFFF; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.scginput1center {  text-align=center; background-color: #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.scginput2center {  text-align=center; background-color: #eeeeee; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}.scgselectblue {  background-color: #DEEBFF; border-style: none; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.scgbutton {  background-color: #CCCCCC; border: 1px #000000 solid}
+.scgselectwidth {  width: 250px}
+.wfstabline2 { background-color: #FFFFFF; border: 1px #666666 solid }
+.wfsinputpage {  background-color: #eeeeee}
+.wfsinputpage2 { background-color: #ffffff}
+.epdbutton {  background-color: #4282C6; border: 1px #000000 solid;font-family: "����"; font-size: 12px; line-height: 16px; color: #FFFFFF}
+.wfsnoinput {  border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; background-color: #eeeeee; text-align=right}
+.saminput { background-color: #eeeeee }
+.saminput1 { background-color: #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px }
+.saminput2 { background-color: #eeeeee; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px }
+.saminputpage { background-color: #eeeeee }
+.saminsidetab { background-color: #666666 }
+.samtabline { background-color: #eeeeee; border: #666666; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px }
+.epdinputright1 { text-align=center; background-color: #FFFFFF; text-align: right; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.epdinputright2 { text-align=center; background-color: #eeeeee; text-align: right; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px }
+a.wfsmail:link {  color: #FFFFFF; text-decoration: underline}
+a.wfsmail:visited {  color: #FFFFFF; text-decoration: underline}
+a.wfsmail:hover {  color: #FF0000}
+.wfsnewtabline { background-color: #eeeeee; border: 1px #666666 solid }
+.TA {scrollbar-3d-light-color:;
+           scrollbar-arrow-color:white;
+           scrollbar-base-color:#6699cc;
+           scrollbar-dark-shadow-color:#6699cc;
+           scrollbar-face-color:;
+           scrollbar-highlight-color:white;
+           scrollbar-shadow-color:white}
+.wfstd31659c {  color: #FFFFFF; background-color: #31659C; text-align: center}
+a.white:link {  color: #FFFFFF; text-decoration: none}
+a.white:visited {  color: #FFFFFF; text-decoration: none}
+a.white:hover {  color: #FF0000; text-decoration: none}
+.saminputpagenl {  background-color: #eeeeee; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.saminputpagenl2 {  background-color: #ffffff; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.saminput1right {  text-align:right; background-color: #FFFFFF; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.saminput2right {  text-align:right; background-color: #eeeeee; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}.samcheck {  border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.samfont {  color: #000066; font-weight: bold}
+.wfsreadmailbg {  background-color: #FFFFFF}
+.wfsreadmailbg2 { background-color: #D5E4F2 }
+.noline {  border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.labline {  background-color: #eeeeee; border: #666666; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.bg1 {  background-color: #ffffff}
+.bg2 {  background-color: #eeeeee}.epd_price_flag{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:90;height:100}
+
+.epd_manage_flag{BACKGROUND-COLOR:white;BORDER-BOTTOM:#666666 1 solid;BORDER-LEFT:#666666 1 solid;
+BORDER-right:#666666 1 solid;BORDER-top:#666666 1 solid;
+DISPLAY: none; POSITION: absolute;
+WIDTH:90;height:50}
+.deskinput {  background-color: #FFFFFF; border-color: #000000 #000000 #999999 #999999; border-style: inset; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.datetitlefont {  color: #4282C6}
+.tabline2 {  background-color: #eeeeee; border-color: #666666 #636563 #636563 #666666; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.tabtitletd2 {  background-color: #0079BD; color: #FFFFFF; text-align: center; border-style: none}
+.bgwhite {  background-color: #FFFFFF}
+.bgblue {  background-color: #D6EFFF}
+.bluefont {  color: #0079BD; font-weight: bold}
+.tabborder {  border-color: #000000 #666666 #666666 #636563; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
+.inputtextright1 {  font-size: 12px; text-align: right; border-color: black black #000000; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.inputtextright2 {  text-align: right; border-color: black black #000000; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px; background-color: #eeeeee}
+.ifcolor {  border-color: #31659c #31659C #31659C; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px}
