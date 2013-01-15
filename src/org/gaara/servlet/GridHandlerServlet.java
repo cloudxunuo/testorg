@@ -35,7 +35,7 @@ public class GridHandlerServlet extends HttpServlet{
 			if(pageParam.equals("view")){
 				System.out.println("View in------------------!");
 				
-				test();
+				//test();
 			}
 		}catch(Exception pe){
 			
