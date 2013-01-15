@@ -58,12 +58,11 @@
   		<div id="navigation" align="left">
 			<ul>
 				<li>
-				<a id="dataTablesItem" href="#">
-					DataTables
-					</a>
+					<a id="testItem" href="#">test</a>
 				</li>
-			</ul>
-			<ul>
+				<li>
+					<a id="dataTablesItem" href="#">DataTables</a>
+				</li>
 				<li>
 					<a id="formValidatorItem" herf="#">FormValidator</a>
 				</li>

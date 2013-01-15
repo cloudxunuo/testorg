@@ -3,6 +3,8 @@
   <head>
     <title>Demo</title>
     <link rel="stylesheet" type="text/css" href="css/divFrame.css" />
+    <link rel="stylesheet" type="text/css" href="css/content.css" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/jquery.json-2.4.js"></script>
     <!-- <script type="text/javascript" src="js/util/selecttime.js"></script> -->
@@ -13,6 +15,9 @@
 	  });
 	  $("#formValidatorItem").click(function(){
 	  	$("#content").load("jsp/formValidatorTest.jsp");
+	  });
+	  $("#testItem").click(function(){
+	  	$("#content").load("jsp/test.jsp");
 	  });
 	});
 	</script>
