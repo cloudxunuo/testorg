@@ -6,6 +6,7 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/coolGrid.js"></script>
 	<script type="text/javascript">
+
 	$(document).ready(function(){
 	  $("#test").coolGrid({
 	  	url: './servlet',

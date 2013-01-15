@@ -24,8 +24,6 @@ public final class DBHelper {
 
         Connection conn = null;
 
- 
-
         try {
 
             String driver = "com.mysql.jdbc.Driver"; // 数据库驱动
@@ -62,9 +60,7 @@ public final class DBHelper {
 
         return conn;
 
-    }
-
- 
+    } 
 
     /**
 
@@ -86,7 +82,6 @@ public final class DBHelper {
 
         Statement stmt = null;
 
- 
 
         try {
 
