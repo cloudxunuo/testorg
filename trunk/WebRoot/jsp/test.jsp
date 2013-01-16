@@ -6,7 +6,6 @@
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/coolGrid.js"></script>
 	<script type="text/javascript">
-
 	$(document).ready(function(){
 	  $("#test").coolGrid({
 	  	url: './servlet',
@@ -38,10 +37,9 @@
 		],
 		sortorder: 'asc',
 		activeSortCol:'ID',
-		width: 760,
 		pageSize: 5,
-		databaseTableName:'detail',
 		insertable:true,
+		databaseTableName:'detail',
 		queryParams:[{name:'MAIN_ID',value:'SQ20120903ADMI0002'}]
 		}
 	  	);
