@@ -9,16 +9,16 @@
 		
 		$.extend($.fn.coolGrid.options,configuration);
 		
-		drawTableHeader(this);
+		//drawTableHeader(this);
 		
-		//fn.coolGrid.options = options
-		var pageParams = {currentPage:1,pageSize:5,totalPage:1};
-		var queryParams = {mainId:"SQ20120903ADMI0002"};
-		var sortParams = {sortCol:"mainId",order:"asc"};
+		//$.fn.coolGrid.options = options;
+		var pageParams = "{currentPage:1,pageSize:5,totalPage:1}";
+		var queryParams = "{name:'mainId',value:'SQ20120903ADMI0002'}";
+		var sortParams = "{sortCol:'mainId',order:'asc'}";
 		loadTableData(pageParams,queryParams,sortParams);
-		var data = {"dataSet":[{"ID":"CG001","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG002","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG003","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG004","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG005","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG006","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG007","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG008","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG009","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"}],pageParams:{"currentPage":"1","totalPage":"2"}};
+		//var data = {"dataSet":[{"ID":"CG001","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG002","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG003","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG004","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG005","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG006","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG007","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG008","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG009","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"}],pageParams:{"currentPage":"1","totalPage":"2"}};
 		
-		addData2Table(data, this);
+		//addData2Table(data, this);
 	};
 	
 	
@@ -188,30 +188,25 @@
 	$.fn.coolGrid.options = { }; 
 	function loadTableData(pageParams, queryParams, sortParams){
 		//var url = options.url;
-		alert("in");
 		var url = "./GridHandlerServlet";
-		alert("before");
-		var dataTable = options.databaseTableName;
-		alert(dataTable);
-		var params = {opParam:"view",dataTable:dataTable,queryParams:queryParams,pageParams:pageParams,sortParams:sortParams};
+		//alert(url);
+		var dataTable = $.fn.coolGrid.options.databaseTableName;
 		
-		$.ajax({
-			url:url,//发送请求地址
-			data:$.toJSON(params),
-			type:'post',//请求方式
-			dataType:'json',
-			contentType: 'application/json;charset=utf-8',
-			success:function(data){
-				console.log(data);
-				//addData2Table(data);
-			},
-			error: function(xhr) {alert(url + " handler got fucked up!");}
-		});
+		var params = "{opParam:'view',dataTable:'" + dataTable +
+		"',queryParams:" + queryParams +
+		",pageParams:" + pageParams + 
+		",sortParams:" + sortParams + "}";
+
+		var tmp = [{name:"params",value:params}];
+		$.post(
+			url,//发送请求地址
+			tmp,
+			function(data){
+				alert("success");
+			}
+		);
 	}
-	
-	function test(){
-		alert("test");
-	}
+
 	
 	function thisDelete(queryParams){
 		var url = options.url;		
