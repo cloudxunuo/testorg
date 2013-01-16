@@ -13,9 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
+import org.json.*;
 public class GridHandlerServlet extends HttpServlet{
 	public GridHandlerServlet() {
 		super();
@@ -25,20 +23,28 @@ public class GridHandlerServlet extends HttpServlet{
 	throws ServletException, IOException {
 		
 		System.out.println("GridHandlerServlet in------------------!");
-		String json = readJSONStringFromRequestBody(request);
+		//String json = readJSONStringFromRequestBody(request);
+		String json = request.getParameter("params");
 		
+		System.out.println(json);
 		JSONObject jsonObject = null;
 		try{
-			jsonObject = JSONObject.fromObject(json);
-			String pageParam = jsonObject.getString("opParam");
-			
-			if(pageParam.equals("view")){
+			jsonObject = new JSONObject(json);
+			String opParam = jsonObject.getString("opParam");
+			System.out.println(opParam);
+			if(opParam.equals("view")){
 				System.out.println("View in------------------!");
 				
-				//test();
+				String dataTable = jsonObject.getString("dataTable");
+				JSONObject queryParams = jsonObject.getJSONObject("queryParams");
+
+				String name = queryParams.getString("name");
+				String value = queryParams.getString("value");
+				System.out.println(value);
+				System.out.println(name);
 			}
 		}catch(Exception pe){
-			
+			System.out.println("fail");
 		}
 	}
 	
@@ -46,19 +52,4 @@ public class GridHandlerServlet extends HttpServlet{
 	throws ServletException, IOException {
 		this.doGet(request, response);
 	}
-	
-	private String readJSONStringFromRequestBody(HttpServletRequest request) {  
-	    StringBuffer json = new  StringBuffer();  
-	    String line = null ;  
-	    try{  
-	        BufferedReader reader = request.getReader();  
-	        while ((line = reader.readLine()) != null ){  
-	            json.append(line);  
-	        }   
-	    }   
-	      catch (Exception e){  
-	        System.out.println( "Error reading JSON string:  "   +  e.toString());  
-	    }   
-	    return json.toString();  
-	}  
 }
