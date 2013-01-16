@@ -13,8 +13,8 @@
 		
 		//$.fn.coolGrid.options = options;
 		var pageParams = "{currentPage:1,pageSize:5,totalPage:1}";
-		var queryParams = "{name:'mainId',value:'SQ20120903ADMI0002'}";
-		var sortParams = "{sortCol:'mainId',order:'asc'}";
+		var queryParams = "[{name:'MAIN_ID',value:'SQ20120903ADMI0002'}]";
+		var sortParams = "{sortCol:'MAIN_ID',order:'asc'}";
 		loadTableData(pageParams,queryParams,sortParams);
 		//var data = {"dataSet":[{"ID":"CG001","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG002","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG003","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG004","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG005","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG006","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG007","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG008","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG009","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"}],pageParams:{"currentPage":"1","totalPage":"2"}};
 		
@@ -191,12 +191,27 @@
 		var url = "./GridHandlerServlet";
 		//alert(url);
 		var dataTable = $.fn.coolGrid.options.databaseTableName;
+		var queryCols = "'";
+		
+		for(var i = 0; i < $.fn.coolGrid.options.colModel.length; i++){
+			var eachCol = $.fn.coolGrid.options.colModel[i];
+
+			for(var j = 0; j < eachCol.data.length; j++){
+				if(eachCol.data[j].type.indexOf('data') != -1)
+					queryCols = queryCols + eachCol.data[j].name + ",";
+			}
+		}
+		queryCols = queryCols.substring(0, queryCols.length - 1);
+		queryCols = queryCols + "'";
 		
 		var params = "{opParam:'view',dataTable:'" + dataTable +
-		"',queryParams:" + queryParams +
+		"',queryCols:" + queryCols +
+		",queryParams:" + queryParams +
 		",pageParams:" + pageParams + 
 		",sortParams:" + sortParams + "}";
-
+		 alert(params);
+		
+		
 		var tmp = [{name:"params",value:params}];
 		$.post(
 			url,//发送请求地址
@@ -205,6 +220,8 @@
 				alert("success");
 			}
 		);
+				
+		
 	}
 
 	
