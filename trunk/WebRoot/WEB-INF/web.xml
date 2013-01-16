@@ -8,4 +8,14 @@
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
+	  <servlet>
+	  <display-name>GridHandlerServlet</display-name>
+	  <servlet-name>GridHandlerServlet</servlet-name>
+	  <servlet-class>org.gaara.servlet.GridHandlerServlet</servlet-class>
+	 </servlet>
+	 
+	 <servlet-mapping>
+	  <servlet-name>GridHandlerServlet</servlet-name>
+	  <url-pattern>/GridHandlerServlet</url-pattern>
+	 </servlet-mapping>
 </web-app>
