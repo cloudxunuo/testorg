@@ -12,15 +12,10 @@
 		
 		drawTableHeader(this);
 		
-		var pageParams = {currentPage:1,pageSize:5,totalPage:1};
-		var queryParams = [{name:'MAIN_ID',value:'SQ20120903ADMI0002'}];
-		var sortParams = {sortCol:'MAIN_ID',order:'asc'};
-		loadTableData(pageParams,queryParams,sortParams);
-		var data = {"dataSet":[{"ID":"CG001","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG002","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG003","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG004","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG005","STATUS":"N","AUDITOR":"李峰","REAL_AUDITOR":"许强","VERIFY_DESC":"审核不合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG006","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG007","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG008","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"},{"ID":"CG009","STATUS":"Y","AUDITOR":"马建山","REAL_AUDITOR":"许强","VERIFY_DESC":"审核合格","VERIFY_DATE":"2013-01-04","VERIFY_DEPART":"一车间","VERIFY_LEVEL":"部门经理","FIELD1":"1","FIELD2":"1"}],pageParams:{"currentPage":"1","totalPage":"2"}};
-		
-		addData2Table(data, this);
-		
-		bindEvents(this);
+		var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
+		var queryParams = $.fn.coolGrid.options.queryParams;
+		var sortParams = {sortCol:$.fn.coolGrid.options.activeSortCol,order:$.fn.coolGrid.options.sortorder};
+		loadTableData(pageParams,queryParams,sortParams,this);
 	};
 	
 	function bindEvents($obj){
@@ -62,6 +57,11 @@
 				url,//发送请求地址
 				finalparam,
 				function(data){
+					if (data == "success"){
+						alert("删除成功");
+					}else{
+						alert("删除失败");
+					}
 				}
 			);
 		
@@ -285,7 +285,7 @@
 	}
 	
 	$.fn.coolGrid.options = { }; 
-	function loadTableData(pageParams, queryParams, sortParams){
+	function loadTableData(pageParams, queryParams, sortParams, $obj){
 		var url = "./GridHandlerServlet";
 		var dataTable = $.fn.coolGrid.options.databaseTableName;
 		var queryCols = [];
@@ -309,6 +309,9 @@
 			url,//发送请求地址
 			tmp,
 			function(data){
+				alert("cloud");
+				addData2Table(data,$obj);
+				bindEvents($obj);
 			}
 		);
 		
