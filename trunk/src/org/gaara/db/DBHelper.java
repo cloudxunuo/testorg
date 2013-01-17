@@ -30,9 +30,9 @@ public final class DBHelper {
 
             String url = "jdbc:MySQL://127.0.0.1:3306/orgdemo";// 数据库
 
-            String user = "root"; // 用户名
+            String user = "admin"; // 用户名
 
-            String password = "19910608"; // 密码
+            String password = "admin"; // 密码
 
             Class.forName(driver); // 加载数据库驱动
 
