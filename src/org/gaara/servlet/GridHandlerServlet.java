@@ -38,15 +38,45 @@ public class GridHandlerServlet extends HttpServlet{
 			System.out.println(opParam);
 			
 			if(opParam.equals("view")){
-				loadTableData(jsonObject);
 				response.setContentType("text/json;charset=UTF-8");        		
 				PrintWriter out = response.getWriter();
 				out.print(loadTableData(jsonObject));
 				out.close();
 			}
+			else if(opParam.equals("delete")){
+				response.setContentType("text/html;charset=UTF-8");        		
+				PrintWriter out = response.getWriter();
+				out.print(deleteData(jsonObject));
+				out.close();
+			}
 		}catch(Exception pe){
 			pe.printStackTrace();
 		}
+	}
+	private String deleteData(JSONObject jsonObject) throws JSONException{
+		System.out.println("Delete in------------------!");
+		String retString = "success";
+		
+		String dataTable = jsonObject.getString("dataTable");
+		
+		JSONArray queryParams = jsonObject.getJSONArray("queryParams");
+		
+		String sql = "delete from " + dataTable + " where 1=1 ";
+		
+		for (int i = 0; i < queryParams.length(); i ++)
+		{
+			String name = queryParams.getJSONObject(i).getString("name");
+			String value = queryParams.getJSONObject(i).getString("value");
+			sql = sql + "and " + name + "='" + value + "' ";
+		}
+		
+		System.out.println(sql);
+		
+		if (DBHelper.executeNonQuery(sql) == 0){
+			retString = "failed";
+		}
+		
+		return retString;
 	}
 	
 	private JSONObject loadTableData(JSONObject jsonObject)
@@ -113,7 +143,11 @@ public class GridHandlerServlet extends HttpServlet{
 			i++;
 		}
 		
-		totalPage = recordsNum / pageSize + 1;
+		if (recordsNum % pageSize == 0){
+			totalPage = recordsNum / pageSize;
+		}else{
+			totalPage = recordsNum / pageSize + 1;
+		}
 		resultSet.close();
 		
 		String tmpPageParams = "{currentPage:" + currentPage + ",totalPage:" + totalPage + "}";
