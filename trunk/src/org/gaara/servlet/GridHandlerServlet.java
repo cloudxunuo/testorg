@@ -35,8 +35,7 @@ public class GridHandlerServlet extends HttpServlet{
 		try{
 			jsonObject = new JSONObject(json);
 			String opParam = jsonObject.getString("opParam");
-			System.out.println(opParam);
-			
+			System.out.println("opParam==" + opParam);
 			if(opParam.equals("view")){
 				response.setContentType("text/json;charset=UTF-8");        		
 				PrintWriter out = response.getWriter();
@@ -47,6 +46,12 @@ public class GridHandlerServlet extends HttpServlet{
 				response.setContentType("text/html;charset=UTF-8");        		
 				PrintWriter out = response.getWriter();
 				out.print(deleteData(jsonObject));
+				out.close();
+			}
+			else if(opParam.equals("insert")){
+				response.setContentType("text/html;charset=UTF-8");        		
+				PrintWriter out = response.getWriter();
+				out.print(insertData(jsonObject));
 				out.close();
 			}
 		}catch(Exception pe){
@@ -68,6 +73,45 @@ public class GridHandlerServlet extends HttpServlet{
 			String name = queryParams.getJSONObject(i).getString("name");
 			String value = queryParams.getJSONObject(i).getString("value");
 			sql = sql + "and " + name + "='" + value + "' ";
+		}
+		
+		System.out.println(sql);
+		
+		if (DBHelper.executeNonQuery(sql) == 0){
+			retString = "failed";
+		}
+		
+		return retString;
+	}
+	
+	private String insertData(JSONObject jsonObject) throws JSONException{
+		System.out.println("insert in------------------!");
+		String retString = "success";
+		
+		String dataTable = jsonObject.getString("dataTable");
+		
+		JSONArray queryParams = jsonObject.getJSONArray("dataParams");
+		
+		String sql = "insert into " + dataTable + "(";
+		
+		for (int i = 0; i < queryParams.length(); i ++)
+		{
+			String name = queryParams.getJSONObject(i).getString("name");
+			if (i == queryParams.length() - 1){
+				sql += name;
+			}else{
+				sql += name + ",";
+			}
+		}
+		sql += ") values(";
+		for (int i = 0; i < queryParams.length(); i ++)
+		{
+			String value = queryParams.getJSONObject(i).getString("value");
+			if (i == queryParams.length() - 1){
+				sql += "'" + value + "')";
+			}else{
+				sql += "'" + value + "',";
+			}
 		}
 		
 		System.out.println(sql);
@@ -147,6 +191,9 @@ public class GridHandlerServlet extends HttpServlet{
 			totalPage = recordsNum / pageSize;
 		}else{
 			totalPage = recordsNum / pageSize + 1;
+		}
+		if(totalPage == 0){
+			totalPage = 1;
 		}
 		resultSet.close();
 		
