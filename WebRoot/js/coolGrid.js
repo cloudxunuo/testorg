@@ -30,21 +30,9 @@
 	}
 	
 	function onAddClick(event){
-		var $firstTR = $(event.target).parents("tr").filter(":first");
-		var colModel = $.fn.coolGrid.options.colModel;
-		var subTableCount = colModel.length;
-		if (subTableCount == 1){
-			//如果是简单表
-			var data = $firstTR.find(":input").serializeArray();
-		}
-		else{
-			//如果是复杂表
-			var firstData = $firstTR.find(":input:hidden").serializeArray();
-			var param = {opParam:"delete"};
-			param.dataTable = $.fn.coolGrid.options.databaseTableName;
-		}
+		alert("add");
 	}
-	function onDeleteClick(){
+	function onDeleteClick(event){
 		var $firstTR = $(event.target).parents("tr").filter(":first");
 		var clickRowIndex =  $firstTR[0].rowIndex;
 		var colModel = $.fn.coolGrid.options.colModel;
@@ -67,11 +55,19 @@
 		var param = {opParam:"delete"};
 		param.dataTable = $.fn.coolGrid.options.databaseTableName;
 		param.queryParams = data;
-		alert(param);
-		console.log(param);
-	}
-	function onUpdateClick(){
+		var finalparam = [{name:"params",value:JSON.stringify(param)}];
+		console.log(finalparam);
+		var url = "./GridHandlerServlet";
+		$.post(
+				url,//发送请求地址
+				finalparam,
+				function(data){
+				}
+			);
 		
+	}
+	function onUpdateClick(event){
+		alert("update");
 	}
 	
 	
