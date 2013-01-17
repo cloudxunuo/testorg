@@ -73,11 +73,30 @@
 	}
 	
 	function sortAscClick(event){
-		console.log("cloud");
+		var $tmp = $(event.target);//.parent().parent().parent().parent();
+		while($tmp.parent("tr").length == 0)
+			$tmp = $tmp.parent();
+		var colName = $tmp.parent("tr").find("input:first").val();
+		
+		var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
+		var queryParams = $.fn.coolGrid.options.queryParams;
+		var sortParams = {sortCol:colName,order:"asc"};
+		
+		loadTableData(pageParams,queryParams,sortParams);
 	}
 	
+	
 	function sortDescClick(event){
-		alert("desc");
+		var $tmp = $(event.target);//.parent().parent().parent().parent();
+		while($tmp.parent("tr").length == 0)
+			$tmp = $tmp.parent();
+		var colName = $tmp.parent("tr").find("input:first").val();
+		
+		var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
+		var queryParams = $.fn.coolGrid.options.queryParams;
+		var sortParams = {sortCol:colName,order:"desc"};
+		
+		loadTableData(pageParams,queryParams,sortParams);
 	}
 	
 	function onAddClick(event){
@@ -208,7 +227,8 @@
 				if(colData[i].sortable == true){
 					$tr.append("<td class='tabtitletd' width='" + colData[i].width
 							+ "'><table align='center'><tr><td class='tabtitletd'>"
-							+ colData[i].display + "</td><td>"
+							+ colData[i].display + "</td><td><input type='hidden' value='"
+							+ colData[i].name + "'></input></td><td>"
 							+ "<div style='overflow:false;clean:both'>" 
 							+ "<a href='#' class='sortAsc'>"
 							+ "<img alt='升序' src='images/asc.gif'></a></div>"
@@ -253,7 +273,8 @@
 						if(colData[j].sortable == true){
 							$subTR.append("<td class='tabtitletd' width='" + colData[j].width
 									+ "'><table align='center'><tr><td class='tabtitletd'>"
-									+ colData[j].display + "</td><td>"
+									+ colData[j].display + "</td><td><input type='hidden' value='"
+									+ colData[j].name + "'></input></td><td>"
 									+ "<div style='overflow:false;clean:both'>" 								
 									+ "<a href='#' class='sortAsc'>"
 									+ "<img alt='升序' src='images/asc.gif'></a></div>"
@@ -278,7 +299,8 @@
 						if(colData[j].sortable == true){
 							$subTR.append("<td class='tabtitletd' width='" + colData[j].width
 									+ "'><table align='center'><tr><td class='tabtitletd'>"
-									+ colData[j].display + "</td><td>"
+									+ colData[j].display + "</td><td><input type='hidden' value='"
+									+ colData[j].name + "'></input></td><td>"
 									+ "<div style='overflow:false;clean:both'>" 
 									+ "<a href='#' class='sortAsc'>"
 									+ "<img alt='升序' src='images/asc.gif'></a></div>"
