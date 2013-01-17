@@ -57,7 +57,7 @@ public class GridHandlerServlet extends HttpServlet{
 		
 		JSONArray queryParams = jsonObject.getJSONArray("queryParams");
 		
-		String[] queryCols = jsonObject.getString("queryCols").split(",");
+		JSONArray queryCols = jsonObject.getJSONArray("queryCols");
 		
 		JSONObject sortParams = jsonObject.getJSONObject("sortParams");
 		String sortCol = sortParams.getString("sortCol");
@@ -72,11 +72,11 @@ public class GridHandlerServlet extends HttpServlet{
 		String pageSql = "select count(*) ";
 		String sql = "select ";
 		
-		for(int i = 0; i < queryCols.length; i++){
-			if(i == (queryCols.length - 1))
-				sql = sql + queryCols[i] + " ";
+		for(int i = 0; i < queryCols.length(); i++){
+			if(i == (queryCols.length() - 1))
+				sql = sql + queryCols.getJSONObject(i).getString("name") + " ";
 			else
-				sql = sql + queryCols[i] + ",";
+				sql = sql + queryCols.getJSONObject(i).getString("name") + ",";
 		}
 		
 		sql = sql + "from " + dataTable + " where 1=1 ";
@@ -104,8 +104,9 @@ public class GridHandlerServlet extends HttpServlet{
 		
 		while(resultSet.next()){					
 			Map map = new HashMap();
-			for(int j = 0; j < queryCols.length; j++){
-				map.put(queryCols[j], resultSet.getString(queryCols[j]));
+			for(int j = 0; j < queryCols.length(); j++){
+				String colName = queryCols.getJSONObject(i).getString("name");
+				map.put(colName, resultSet.getString(colName));
 			}
 			JSONObject record = new JSONObject(map);
 			records.put(i, record);
