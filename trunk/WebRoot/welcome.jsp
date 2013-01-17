@@ -8,7 +8,7 @@
   </head>
   <body>
   	<div id="welcome">
-  		欢迎使用本系统
+		Welcome!
   	</div>
   </body>
 </html>
