@@ -24,6 +24,16 @@
 		$table.find(".add").bind("click",onAddClick);
 		$table.find(".delete").bind("click",onDeleteClick);
 		$table.find(".update").bind("click",onUpdateClick);
+		$table.find(".sortAsc").bind("click",sortAscClick);
+		$table.find(".sortDesc").bind("click",sortDescClick);
+	}
+	
+	function sortAscClick(event){
+		alert("asc");
+	}
+	
+	function sortDescClick(event){
+		alert("desc");
 	}
 	
 	function onAddClick(event){
@@ -100,8 +110,21 @@
 			
 			var colData = colModel[0].data;
 			for (var i = 0; i < colData.length; i++){
-				$tr.append("<td class='tabtitletd' width='" + colData[i].width
-						+ "'>" + colData[i].display + "</td>");
+				if(colData[i].sortable == true){
+					$tr.append("<td class='tabtitletd' width='" + colData[i].width
+							+ "'><table align='center'><tr><td class='tabtitletd'>"
+							+ colData[i].display + "</td><td>"
+							+ "<div style='overflow:false;clean:both'>" 
+							+ "<a href='#' class='sortAsc'>"
+							+ "<img alt='升序' src='images/asc.gif'></a></div>"
+							+ "<div style='overflow:false;clean:both'>"
+							+ "<a href='#' class='sortDesc'>"
+							+ "<img alt='降序' src='images/desc.gif'></a></div></td></tr></table></td>"
+					);
+				}else{
+					$tr.append("<td class='tabtitletd' width='" + colData[i].width
+							+ "'>" + colData[i].display + "</td>");
+				}
 			}
 		}
 		else if (colModel.length > 1){
@@ -128,12 +151,25 @@
 					}
 					$td.append("<div style='overflow-x:auto;width:" + colModel[i].width + "'></div>");
 					$td.find("div").append("<table id='subTable" + i + "' width=" + tableWidth +
-							" border='0'  cellspacing='1' cellpadding='2' class='tabline' align='center' style='text-align: center;'></table>");
+							" border='0' cellspacing='1' cellpadding='2' class='tabline' align='center' style='text-align: center;'></table>");
 					$td.find("#subTable" + i).append("<tr></tr>");
 					$subTR = $td.find("#subTable" + i).find("tr");
 					for (var j = 0; j < colData.length; j++){
-						$subTR.append("<td class='tabtitletd' width='" + colData[j].width
-								+ "'>" + colData[j].display + "</td>");
+						if(colData[j].sortable == true){
+							$subTR.append("<td class='tabtitletd' width='" + colData[j].width
+									+ "'><table align='center'><tr><td class='tabtitletd'>"
+									+ colData[j].display + "</td><td>"
+									+ "<div style='overflow:false;clean:both'>" 								
+									+ "<a href='#' class='sortAsc'>"
+									+ "<img alt='升序' src='images/asc.gif'></a></div>"
+									+ "<div style='overflow:false;clean:both'>"
+									+ "<a href='#' class='sortDesc'>"
+									+ "<img alt='降序' src='images/desc.gif'></a></div></td></tr></table></td>"
+							);
+						}else{
+							$subTR.append("<td class='tabtitletd' width='" + colData[j].width
+									+ "'>" + colData[j].display + "</td>");
+						}
 					}
 				}
 				else{
@@ -144,8 +180,21 @@
 					$td.find("#subTable" + i).append("<tr></tr>");
 					$subTR = $td.find("#subTable" + i).find("tr");
 					for (var j = 0; j < colData.length; j++){
-						$subTR.append("<td class='tabtitletd' width='" + colData[j].width
-								+ "'>" + colData[j].display + "</td>");
+						if(colData[j].sortable == true){
+							$subTR.append("<td class='tabtitletd' width='" + colData[j].width
+									+ "'><table align='center'><tr><td class='tabtitletd'>"
+									+ colData[j].display + "</td><td>"
+									+ "<div style='overflow:false;clean:both'>" 
+									+ "<a href='#' class='sortAsc'>"
+									+ "<img alt='升序' src='images/asc.gif'></a></div>"
+									+ "<div style='overflow:false;clean:both'>"
+									+ "<a href='#' class='sortDesc'>"
+									+ "<img alt='降序' src='images/desc.gif'></a></div></td></tr></table></td>"
+							);
+						}else{
+							$subTR.append("<td class='tabtitletd' width='" + colData[j].width
+									+ "'>" + colData[j].display + "</td>");
+						}
 					}
 				}
 			}
@@ -161,11 +210,11 @@
 		
 		if (subTableCount == 1){
 			//简单表
-			$table.find("tr").filter(":gt(0)").remove();//如果该表有数据，除了列名tr全部移除
+			$table.children("tr").filter(":gt(0)").remove();//如果该表有数据，除了列名tr全部移除
 		}else{
 			//复杂表
 			for (var j = 0; j < subTableCount; j++){
-				$("#subTable" + j + " tr :gt(0)").remove();//如果该表有数据，除了列名tr全部移除
+				$("#subTable" + j).children("tr").filter(":gt(0)").remove();//如果该表有数据，除了列名tr全部移除
 			}
 		}
 		for (var key in data)
