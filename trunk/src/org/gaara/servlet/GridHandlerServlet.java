@@ -135,7 +135,7 @@ public class GridHandlerServlet extends HttpServlet{
 		while(resultSet.next()){					
 			Map map = new HashMap();
 			for(int j = 0; j < queryCols.length(); j++){
-				String colName = queryCols.getJSONObject(i).getString("name");
+				String colName = queryCols.getJSONObject(j).getString("name");
 				map.put(colName, resultSet.getString(colName));
 			}
 			JSONObject record = new JSONObject(map);

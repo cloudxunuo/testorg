@@ -6,22 +6,24 @@
 	// plugin definition 
 	//
 	$.fn.coolGrid = function(configuration) { 
-		debug(this);
+		
+		$.fn.coolGrid.table = $(this);
 		
 		$.extend($.fn.coolGrid.options,configuration);
 		
-		drawTableHeader(this);
+		drawTableHeader();
 		
 		var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
 		var queryParams = $.fn.coolGrid.options.queryParams;
 		var sortParams = {sortCol:$.fn.coolGrid.options.activeSortCol,order:$.fn.coolGrid.options.sortorder};
-		loadTableData(pageParams,queryParams,sortParams,this);
+		loadTableData(pageParams,queryParams,sortParams);
 	};
 	
-	function bindEvents($obj){
-		$obj.find(".add").bind("click",onAddClick);
-		$obj.find(".delete").bind("click",onDeleteClick);
-		$obj.find(".update").bind("click",onUpdateClick);
+	function bindEvents(){
+		$table = $.fn.coolGrid.table;
+		$table.find(".add").bind("click",onAddClick);
+		$table.find(".delete").bind("click",onDeleteClick);
+		$table.find(".update").bind("click",onUpdateClick);
 	}
 	
 	function onAddClick(event){
@@ -32,7 +34,7 @@
 		var clickRowIndex =  $firstTR[0].rowIndex;
 		var colModel = $.fn.coolGrid.options.colModel;
 		var subTableCount = colModel.length;
-		var data = [{"":""}];
+		var data = [];
 		if (subTableCount == 1){
 			//如果是简单表
 			data = $firstTR.find(":input:hidden").serializeArray();
@@ -51,7 +53,6 @@
 		param.dataTable = $.fn.coolGrid.options.databaseTableName;
 		param.queryParams = data;
 		var finalparam = [{name:"params",value:JSON.stringify(param)}];
-		console.log(finalparam);
 		var url = "./GridHandlerServlet";
 		$.post(
 				url,//发送请求地址
@@ -59,6 +60,10 @@
 				function(data){
 					if (data == "success"){
 						alert("删除成功");
+						var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
+						var queryParams = $.fn.coolGrid.options.queryParams;
+						var sortParams = {sortCol:$.fn.coolGrid.options.activeSortCol,order:$.fn.coolGrid.options.sortorder};
+						loadTableData(pageParams,queryParams,sortParams);
 					}else{
 						alert("删除失败");
 					}
@@ -71,24 +76,27 @@
 	}
 	
 	
-	function debug($obj) { 
+	function debug() { 
+		$table = $.fn.coolGrid.table;
 		if (window.console && window.console.log) 
-		window.console.log('coolGrid selection count: ' + $obj.size()); 
+			window.console.log('coolGrid selection count: ' + $table.size()); 
 	}
 
-	function drawTableHeader($obj){
+	function drawTableHeader($table){
 		//最简单的table
+		$table = $.fn.coolGrid.table;
+		
 		var colModel = $.fn.coolGrid.options.colModel;
 		if (colModel.length == 1){
 			
-			$obj.addClass("tabline");
-			$obj.attr("border",0);
-			$obj.attr("cellspacing",1);
-			$obj.attr("cellpadding",0);
-			$obj.css("text-align","center");
-			$obj.attr("width",$.fn.coolGrid.options.width);
-			$obj.append("<tr></tr>");
-			var $tr = $obj.find("tr :last");
+			$table.addClass("tabline");
+			$table.attr("border",0);
+			$table.attr("cellspacing",1);
+			$table.attr("cellpadding",0);
+			$table.css("text-align","center");
+			$table.attr("width",$.fn.coolGrid.options.width);
+			$table.append("<tr></tr>");
+			var $tr = $table.find("tr :last");
 			
 			var colData = colModel[0].data;
 			for (var i = 0; i < colData.length; i++){
@@ -97,13 +105,13 @@
 			}
 		}
 		else if (colModel.length > 1){
-			$obj.attr("border",0);
-			$obj.attr("cellspacing",0);
-			$obj.attr("cellpadding",0);
-			$obj.css("text-align","center");
-			$obj.attr("width",$.fn.coolGrid.options.width);
-			$obj.append("<tr></tr>");
-			var $tr = $obj.find("tr :last");
+			$table.attr("border",0);
+			$table.attr("cellspacing",0);
+			$table.attr("cellpadding",0);
+			$table.css("text-align","center");
+			$table.attr("width",$.fn.coolGrid.options.width);
+			$table.append("<tr></tr>");
+			var $tr = $table.find("tr :last");
 			
 			var subTableCount = colModel.length;
 			
@@ -144,11 +152,22 @@
 		}
 	}
 	
-	function addData2Table(data, $obj)
+	function addData2Table(data)
 	{
+		$table = $.fn.coolGrid.table;
 		var subTableCount = $.fn.coolGrid.options.colModel.length;
 		var colModel = $.fn.coolGrid.options.colModel;
 		var i = 0;
+		
+		if (subTableCount == 1){
+			//简单表
+			$table.find("tr").filter(":gt(0)").remove();//如果该表有数据，除了列名tr全部移除
+		}else{
+			//复杂表
+			for (var j = 0; j < subTableCount; j++){
+				$("#subTable" + j + " tr :gt(0)").remove();//如果该表有数据，除了列名tr全部移除
+			}
+		}
 		for (var key in data)
 		{
 			if (key == "dataSet")
@@ -158,14 +177,14 @@
 					if (subTableCount == 1){
 						//如果是简单表
 						if (i % 2 == 0){
-							$obj.append("<tr class='tabtd1'></tr>");
+							$table.append("<tr class='tabtd1'></tr>");
 						}
 						else{
-							$obj.append("<tr class='tabtd2'></tr>");
+							$table.append("<tr class='tabtd2'></tr>");
 						}
 						var table = colModel[0];
 			    		for (var k = 0; k < table.data.length; k++){
-			    			$tr = $obj.find("tr :last");
+			    			$tr = $table.find("tr :last");
 			    			$tr.append("<td></td>");
 			    			$td = $tr.find("td :last");
 			    			var colName = table.data[k].name;
@@ -236,12 +255,12 @@
 			//是否只是可添加数据
 			if (subTableCount == 1){
 				//如果是简单表
-				var rowCount = $obj.children("tr").length;
+				var rowCount = $table.children("tr").length;
 				if (rowCount % 2 != 0)
-					$obj.append("<tr class='tabtd1'></tr>");
+					$table.append("<tr class='tabtd1'></tr>");
 				else
-					$obj.append("<tr class='tabtd2'></tr>");
-				$tr = $obj.find("tr :last");
+					$table.append("<tr class='tabtd2'></tr>");
+				$tr = $table.find("tr :last");
 				for (var k = 0; k < colModel[0].data.length; k++){
 					$tr.append("<td></td>");
 					$td = $tr.find("td :last");
@@ -285,7 +304,8 @@
 	}
 	
 	$.fn.coolGrid.options = { }; 
-	function loadTableData(pageParams, queryParams, sortParams, $obj){
+	function loadTableData(pageParams, queryParams, sortParams){
+		$table = $.fn.coolGrid.table;
 		var url = "./GridHandlerServlet";
 		var dataTable = $.fn.coolGrid.options.databaseTableName;
 		var queryCols = [];
@@ -303,18 +323,17 @@
 		var params = {opParam:'view',dataTable:dataTable,queryCols:queryCols,queryParams:queryParams,pageParams:pageParams,sortParams:sortParams};	
 		var paramsString = JSON.stringify(params);
 		var tmp = [{name:"params",value:paramsString}];
-		alert(tmp[0].value);
 		
 		$.post(
 			url,//发送请求地址
 			tmp,
 			function(data){
-				alert("cloud");
-				addData2Table(data,$obj);
-				bindEvents($obj);
+				addData2Table(data);
+				bindEvents();
 			}
 		);
 		
 	}
 	$.fn.coolGrid.options = {};
+	$.fn.coolGrid.table;
 })(jQuery);
