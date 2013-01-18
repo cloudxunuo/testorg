@@ -54,6 +54,12 @@ public class GridHandlerServlet extends HttpServlet{
 				out.print(insertData(jsonObject));
 				out.close();
 			}
+			else if(opParam.equals("update")){
+				response.setContentType("text/html;charset=UTF-8");        		
+				PrintWriter out = response.getWriter();
+				out.print(updateData(jsonObject));
+				out.close();
+			}
 		}catch(Exception pe){
 			pe.printStackTrace();
 		}
@@ -112,6 +118,45 @@ public class GridHandlerServlet extends HttpServlet{
 			}else{
 				sql += "'" + value + "',";
 			}
+		}
+		
+		System.out.println(sql);
+		
+		if (DBHelper.executeNonQuery(sql) == 0){
+			retString = "failed";
+		}
+		
+		return retString;
+	}
+	
+	private String updateData(JSONObject jsonObject) throws JSONException{
+		System.out.println("Update in----------------!");
+		String retString = "success";
+		
+		String dataTable = jsonObject.getString("dataTable");
+		
+		JSONArray queryParams = jsonObject.getJSONArray("queryParams");
+		JSONArray changeParams = jsonObject.getJSONArray("changeParams");
+		
+		String sql = "update " + dataTable + " set ";
+		
+		for (int i = 0; i < changeParams.length(); i ++)
+		{
+			String name = changeParams.getJSONObject(i).getString("name");
+			String value = changeParams.getJSONObject(i).getString("value");
+			if (i == changeParams.length() - 1){
+				sql = sql + name + "='" + value + "' ";
+			}else{
+				sql = sql + name + "='" + value + "', ";
+				
+			}
+		}
+		sql += "where 1=1 ";
+		for (int i = 0; i < queryParams.length(); i ++)
+		{
+			String name = queryParams.getJSONObject(i).getString("name");
+			String value = queryParams.getJSONObject(i).getString("value");
+			sql = sql + "and " + name + "='" + value + "' ";
 		}
 		
 		System.out.println(sql);

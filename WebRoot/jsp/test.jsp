@@ -8,13 +8,13 @@
 	<script type="text/javascript">
 	$(document).ready(function(){
 	  $("#test").coolGrid({
-	  	url: './servlet',
+	  	url: './GridHandlerServlet',
 		colModel :
 		[
 			{
 				xscrollable:false, data:
 				[
-					{type:'delete|update',display: '操作', name : 'operator', width : 60},
+					{type:'delete|update|checkBox',display: '操作', name : 'operator', width : 60},
 					{type:'data',display: '序号', name : 'ID', width : 100, key:true, editable:false, sortable:true},
 					{type:'data',display: '状态', name : 'STATUS', width : 40},
 					{type:'data',display: '审核人', name : 'AUDITOR', width : 40}
