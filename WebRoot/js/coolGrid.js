@@ -73,7 +73,7 @@
 	}
 	
 	function sortAscClick(event){
-		var $tmp = $(event.target);//.parent().parent().parent().parent();
+		var $tmp = $(event.target);
 		while($tmp.parent("tr").length == 0)
 			$tmp = $tmp.parent();
 		var colName = $tmp.parent("tr").find("input:first").val();
@@ -87,7 +87,7 @@
 	
 	
 	function sortDescClick(event){
-		var $tmp = $(event.target);//.parent().parent().parent().parent();
+		var $tmp = $(event.target);
 		while($tmp.parent("tr").length == 0)
 			$tmp = $tmp.parent();
 		var colName = $tmp.parent("tr").find("input:first").val();
@@ -96,7 +96,7 @@
 		var queryParams = $.fn.coolGrid.options.queryParams;
 		var sortParams = {sortCol:colName,order:"desc"};
 		
-		loadTableData(pageParams,queryParams,sortParams);
+		loadTableData(pageParams,queryParams,sortParams);	
 	}
 	
 	function onAddClick(event){
@@ -516,7 +516,7 @@
 		var params = {opParam:'view',dataTable:dataTable,queryCols:queryCols,queryParams:queryParams,pageParams:pageParams,sortParams:sortParams};	
 		var paramsString = JSON.stringify(params);
 		var tmp = [{name:"params",value:paramsString}];
-		
+
 		$.post(
 			url,//发送请求地址
 			tmp,
