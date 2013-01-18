@@ -201,18 +201,48 @@
 			$tmp = $tmp.parent();
 		
 		var queryParams = $tmp.parent("tr").find("input:hidden").serializeArray();
-		console.log(queryParams);
-		var changeParams = $tmp.parent("tr").find("input").serializeArray();
-		console.log(changeParams);
-		/*
-		var colName = $tmp.parent("tr").find("input:first").val();
+		var clickRowIndex = $tmp.parent("tr").filter(":first")[0].rowIndex;
+		var colModel = $.fn.coolGrid.options.colModel;
+		var subTableCount = colModel.length;
 		
-		var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
-		var queryParams = $.fn.coolGrid.options.queryParams;
-		var sortParams = {sortCol:colName,order:"asc"};
+		var data = [];
+		if (subTableCount == 1){
+			//如果是简单表
+			var changeParams = $tmp.parent("tr").find(":input").serializeArray();
+			for (var key in changeParams){
+    			if (changeParams[key]["value"] != '')
+    				data.push({name:changeParams[key]["name"],value:changeParams[key]["value"]});
+    		}
+		}else{
+			//如果是复杂表
+			for (var j = 0; j < subTableCount; j++){
+	    		var $tmpTR = $("#subTable" + j).children("tbody").children("tr").filter(":eq("+ clickRowIndex + ")");
+	    		var changeParams = $tmpTR.find(":input").serializeArray();
+	    		for (var key in changeParams){
+	    			if (changeParams[key]["value"] != '')
+	    				data.push({name:changeParams[key]["name"],value:changeParams[key]["value"]});
+	    		}
+			}
+		}
+		console.log(data);
 		
-		loadTableData(pageParams,queryParams,sortParams);
-		*/
+		var $obj = $.fn.coolGrid.options;
+		var url = $obj.url;
+		var dataTable = $obj.databaseTableName;
+		//alert($obj.url);
+		var param = {opParam:"update",dataTable:dataTable,changeParams:data,queryParams:queryParams};
+		var params = [{name:'params',value:JSON.stringify(param)}];
+		$.post(
+				url,//发送请求地址
+				params,
+				function(data){
+					if (data == "success"){
+						alert("插入成功");
+					}else{
+						alert("插入失败");
+					}
+				}
+		);
 	}
 	
 	function pageQuery(currentPage, pageCount){
