@@ -99,14 +99,17 @@
 	
 	function onAddClick(event){
 		var $firstTR = $(event.target).parents("tr").filter(":first");
-		console.log($firstTR);
 		var clickRowIndex =  $firstTR[0].rowIndex;
 		var colModel = $.fn.coolGrid.options.colModel;
 		var subTableCount = colModel.length;
 		var data = [];
 		if (subTableCount == 1){
 			//如果是简单表
-			data = $firstTR.find(":input").serializeArray();
+			var tmpData = $firstTR.find(":input").serializeArray();
+			for (var key in tmpData){
+    			if (tmpData[key]["value"] != '')
+    				data.push({name:tmpData[key]["name"],value:tmpData[key]["value"]});
+    		}
 		}
 		else{
 			//如果是复杂表
@@ -114,7 +117,8 @@
 	    		var $tmpTR = $("#subTable" + j).children("tbody").children("tr").filter(":eq("+ clickRowIndex + ")");
 	    		var tmpData = $tmpTR.find(":input").serializeArray();
 	    		for (var key in tmpData){
-    				data.push({name:tmpData[key]["name"],value:tmpData[key]["value"]});
+	    			if (tmpData[key]["value"] != '')
+	    				data.push({name:tmpData[key]["name"],value:tmpData[key]["value"]});
 	    		}
 			}
 		}
@@ -133,7 +137,9 @@
 				finalparam,
 				function(data){
 					if (data == "success"){
-						var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
+						var currentPage =  parseInt($("#currentPage").val());
+						var pageCount = parseInt($("#pageCount").val());
+						var pageParams = {currentPage:currentPage,pageSize:$.fn.coolGrid.options.pageSize,totalPage:pageCount};
 						var queryParams = $.fn.coolGrid.options.queryParams;
 						var sortParams = {sortCol:$.fn.coolGrid.options.activeSortCol,order:$.fn.coolGrid.options.sortorder};
 						loadTableData(pageParams,queryParams,sortParams);
@@ -316,17 +322,6 @@
 				}
 			}
 		}
-		$table.find(".sortAsc").bind("click",sortAscClick);
-		$table.find(".sortDesc").bind("click",sortDescClick);
-	}
-	
-	function addData2Table(data)
-	{
-		$table = $.fn.coolGrid.table;
-		var subTableCount = $.fn.coolGrid.options.colModel.length;
-		var colModel = $.fn.coolGrid.options.colModel;
-		var i = 0;
-		
 		for (var i = 0; i < $.fn.coolGrid.options.queryParams.length; i++){
 			//如果查询条件中有未在table里显示出来的列，那么该条件是外键，应该作为<input type="hidden">添加到表格里
 			//在插入数据时需要用到该外键
@@ -344,6 +339,17 @@
 				$table.append("<input type='hidden' name='"+ $.fn.coolGrid.options.queryParams[i].name +"' value='"+$.fn.coolGrid.options.queryParams[i].value +"'></input>");
 			}
 		}
+		
+		$table.find(".sortAsc").bind("click",sortAscClick);
+		$table.find(".sortDesc").bind("click",sortDescClick);
+	}
+	
+	function addData2Table(data)
+	{
+		$table = $.fn.coolGrid.table;
+		var subTableCount = $.fn.coolGrid.options.colModel.length;
+		var colModel = $.fn.coolGrid.options.colModel;
+		var i = 0;
 		
 		if (subTableCount == 1){
 			//简单表
@@ -445,8 +451,8 @@
 			//是否只是可添加数据
 			if (subTableCount == 1){
 				//如果是简单表
-				var rowCount = $table.children("tr").length;
-				if (rowCount % 2 == 0)
+				var rowCount = $table.children("tbody").children("tr").length;
+				if (rowCount % 2 != 0)
 					$table.append("<tr class='tabtd1'></tr>");
 				else
 					$table.append("<tr class='tabtd2'></tr>");
@@ -463,8 +469,8 @@
 			}
 			else{
 				//如果是复杂表
-				var rowCount = $("subTable0 tr").length;
-				if (rowCount % 2 == 0)
+				var rowCount = $("#subTable0").children("tbody").children("tr").length;
+				if (rowCount % 2 != 0)
 		    	{
 		    		for (var j = 0; j < subTableCount; j++){
 		    			$("#subTable" + j).append("<tr class='tabtd1'></tr>");
