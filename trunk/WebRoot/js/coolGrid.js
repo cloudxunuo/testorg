@@ -7,9 +7,14 @@
 	//
 	$.fn.coolGrid = function(configuration) { 
 		
-		$.fn.coolGrid.table = $(this);
-		
 		$.extend($.fn.coolGrid.options,configuration);
+		
+		$.fn.coolGrid.div = $(this);
+		
+		if ($.fn.coolGrid.options.queryModel != undefined){
+			//如果指定了查询框
+			drawQueryForm();
+		}
 		
 		drawTableHeader();
 		
@@ -131,7 +136,6 @@
 		param.dataParams = data;
 		var finalparam = [{name:"params",value:JSON.stringify(param)}];
 		var url = "./GridHandlerServlet";
-		console.log(finalparam);
 		$.post(
 				url,//发送请求地址
 				finalparam,
@@ -152,7 +156,6 @@
 	}
 	function onDeleteClick(event){
 		var $firstTR = $(event.target).parents("tr").filter(":first");
-		console.log($firstTR);
 		var clickRowIndex =  $firstTR[0].rowIndex;
 		var colModel = $.fn.coolGrid.options.colModel;
 		var subTableCount = colModel.length;
@@ -257,9 +260,21 @@
 		if (window.console && window.console.log) 
 			window.console.log('coolGrid selection count: ' + $table.size()); 
 	}
+	
+	function drawQueryForm(){
+		if ($.fn.coolGrid.options.width != undefined)
+			$.fn.coolGrid.div.append("<fieldset id='coolGridQueryForm' style='width:"+ $.fn.coolGrid.options.width +"px;border:solid 1px #aaa;position:relative;'></fieldset>");
+		else
+			$.fn.coolGrid.div.append("<fieldset id='coolGridQueryForm' style='border:solid 1px #aaa;position:relative;'></fieldset>");
+		
+		var $queryModel = fn.coolGrid.options.queryModel;
+		$("#coolGridQueryForm").append("<legend>"+$queryModel.legend+"</legend>");
+	}
 
-	function drawTableHeader($table){
+	function drawTableHeader(){
 		//最简单的table
+		$.fn.coolGrid.div.append("<table id='coolGridDataTable'></table>");
+		$.fn.coolGrid.table = $.fn.coolGrid.div.find("#coolGridDataTable");
 		$table = $.fn.coolGrid.table;
 		
 		var colModel = $.fn.coolGrid.options.colModel;
@@ -544,13 +559,12 @@
 			}
 		}
 		//添加翻页功能
-		$table.after("<div id='pageDiv' style='width:500px;height:20px;'><a href='#'><font id='first' face='Webdings' style='color: #0000ff'>9</font></a><a href='#'><font id='prev' face='Webdings' style='color: #0000ff'>3</font></a><input type='text' id='currentPage' name='currentPage' value='1' style='width: 15px'/>/<input readonly type='text' id='pageCount' name='pageCount' value='1' style='width: 10px;border:0;background:transparent;'/><a href='#'><font id='next' face='Webdings' style='color: #0000ff'>4</font></a><a href='#'><font id='last' face='Webdings' style='color: #0000ff'>:</font></a></div>");
+		$.fn.coolGrid.div.append("<div id='pageDiv' style='width:500px;height:20px;'><a href='#'><font id='first' face='Webdings' style='color: #0000ff'>9</font></a><a href='#'><font id='prev' face='Webdings' style='color: #0000ff'>3</font></a><input type='text' id='currentPage' name='currentPage' value='1' style='width: 15px'/>/<input readonly type='text' id='pageCount' name='pageCount' value='1' style='width: 10px;border:0;background:transparent;'/><a href='#'><font id='next' face='Webdings' style='color: #0000ff'>4</font></a><a href='#'><font id='last' face='Webdings' style='color: #0000ff'>:</font></a></div>");
 		//修改currentPage和pageCount的值
 		$("#currentPage").val(data.pageParam.currentPage);
 		$("#pageCount").val(data.pageParam.totalPage);
 	}
 	
-	$.fn.coolGrid.options = { }; 
 	function loadTableData(pageParams, queryParams, sortParams){
 		$table = $.fn.coolGrid.table;
 		var url = "./GridHandlerServlet";
@@ -583,4 +597,5 @@
 	}
 	$.fn.coolGrid.options = {};
 	$.fn.coolGrid.table;
+	$.fn.coolGrid.div;
 })(jQuery);
