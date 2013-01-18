@@ -196,7 +196,23 @@
 		
 	}
 	function onUpdateClick(event){
-		alert("update");
+		var $tmp = $(event.target);
+		while($tmp.parent("tr").length == 0)
+			$tmp = $tmp.parent();
+		
+		var queryParams = $tmp.parent("tr").find("input:hidden").serializeArray();
+		console.log(queryParams);
+		var changeParams = $tmp.parent("tr").find("input").serializeArray();
+		console.log(changeParams);
+		/*
+		var colName = $tmp.parent("tr").find("input:first").val();
+		
+		var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
+		var queryParams = $.fn.coolGrid.options.queryParams;
+		var sortParams = {sortCol:colName,order:"asc"};
+		
+		loadTableData(pageParams,queryParams,sortParams);
+		*/
 	}
 	
 	function pageQuery(currentPage, pageCount){
@@ -248,6 +264,7 @@
 				}
 			}
 		}
+		
 		else if (colModel.length > 1){
 			$table.attr("border",0);
 			$table.attr("cellspacing",0);
@@ -339,7 +356,6 @@
 				$table.append("<input type='hidden' name='"+ $.fn.coolGrid.options.queryParams[i].name +"' value='"+$.fn.coolGrid.options.queryParams[i].value +"'></input>");
 			}
 		}
-		
 		$table.find(".sortAsc").bind("click",sortAscClick);
 		$table.find(".sortDesc").bind("click",sortDescClick);
 	}
