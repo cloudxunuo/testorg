@@ -35,10 +35,21 @@
 				width:500
 			}
 		],
-		
+		queryModel:
+		{
+			legend:'审核查询信息',
+			data:[
+				{type:'data', display:'序号',name:'ID'},
+				{type:'data', display:'状态',name:'STATUS'},
+				{type:'data', display:'审核人',name:'AUDITOR'},
+				{type:'data', display:'实际审核人',name:'REAL_AUDITOR'},
+				{type:'data', display:'审核日期',name:'VERIFY_DATE'}
+				]
+		},
 		saveWholeTable:true,
 		sortorder: 'asc',
 		activeSortCol:'ID',
+		width:750,
 		pageSize: 5,
 		insertable:true,
 		databaseTableName:'detail',

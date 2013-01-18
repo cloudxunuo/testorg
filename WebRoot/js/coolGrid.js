@@ -251,7 +251,22 @@
 	
 	function pageQuery(currentPage, pageCount){
 		var pageParams = {currentPage:currentPage,pageSize:$.fn.coolGrid.options.pageSize,totalPage:pageCount};
-		var queryParams = $.fn.coolGrid.options.queryParams;
+
+		var queryParams = [];
+		if ($.fn.coolGrid.options.queryModel == undefined){
+			queryParams = $.fn.coolGrid.options.queryParams
+		}else{
+			for (var i = 0; i < $.fn.coolGrid.options.queryParams.length; i++){
+				queryParams.push($.fn.coolGrid.options.queryParams[i]);
+			}
+			
+			var formData = $("#coolGridQueryForm :input").serializeArray();
+			for (var i = 0; i < formData.length; i++){
+				if (formData[i].value != ''){
+					queryParams.push(formData[i]);
+				}
+			}
+		}
 		var sortParams = {sortCol:$.fn.coolGrid.options.activeSortCol,order:$.fn.coolGrid.options.sortorder};
 		loadTableData(pageParams,queryParams,sortParams);
 	}
@@ -263,13 +278,57 @@
 	}
 	
 	function drawQueryForm(){
-		if ($.fn.coolGrid.options.width != undefined)
-			$.fn.coolGrid.div.append("<fieldset id='coolGridQueryForm' style='width:"+ $.fn.coolGrid.options.width +"px;border:solid 1px #aaa;position:relative;'></fieldset>");
-		else
-			$.fn.coolGrid.div.append("<fieldset id='coolGridQueryForm' style='border:solid 1px #aaa;position:relative;'></fieldset>");
+		var infoCountPerRow  = 3;
 		
-		var $queryModel = fn.coolGrid.options.queryModel;
-		$("#coolGridQueryForm").append("<legend>"+$queryModel.legend+"</legend>");
+		if ($.fn.coolGrid.options.width != undefined)
+			$.fn.coolGrid.div.append("<fieldset id='coolGridFieldset' style='width:"+ (parseInt($.fn.coolGrid.options.width) - 30) +"px;border:solid 1px #aaa;position:relative;'></fieldset>");
+		else
+			$.fn.coolGrid.div.append("<fieldset id='coolGridFieldset' style='width:500px;border:solid 1px #aaa;position:relative;'></fieldset>");
+		
+		var $queryModel = $.fn.coolGrid.options.queryModel;
+		var $queryFieldset = $("#coolGridFieldset");
+		$queryFieldset.append("<legend>"+$queryModel.legend+"</legend>");
+		$queryFieldset.append("<div id='coolGridQueryForm' style='padding:5px;'></div>");
+		$("#coolGridQueryForm").append("<table style='width:100%;'></table>");
+		var $tmpTable = $("#coolGridQueryForm").children("table");
+		var $lastTR;
+		for (var i = 0 ; i < $queryModel.data.length; i++){
+			if (i % infoCountPerRow == 0){
+				$tmpTable.append("<tr></tr>");
+				$lastTR = $tmpTable.children("tbody").children("tr").filter(":last");
+			}
+			$lastTR.append("<td>"+$queryModel.data[i].display+": </td>");
+			$lastTR.append("<td><input type='text' name='"+$queryModel.data[i].name+"'></td>");
+		}
+		$tmpTable.append("<tr><td style='text-align:right;padding-top:5px;padding-right:20px;' colspan='"+(infoCountPerRow * 2)+"'></td></tr>");
+		$lastTR = $tmpTable.children("tbody").children("tr").filter(":last");
+		$lastTR.children("td").append("<font face='Webdings' class='redcolor'>4</font><a id='coolGridSearch' href='#'>查询</a>&nbsp;&nbsp;");
+		$lastTR.children("td").append("<font face='Webdings' class='redcolor'>4</font><a id='coolGridReset' href='#'>重置</a>&nbsp;&nbsp;");
+		$.fn.coolGrid.div.append("<br>");
+		
+		//绑定查询和重置事件
+		$("#coolGridSearch").bind("click",queryFormSearch);
+		$("#coolGridReset").click(function(){$("#coolGridQueryForm :input").val("");});
+	}
+	
+	function queryFormSearch(){
+		var currentPage =  parseInt($("#currentPage").val());
+		var pageCount = parseInt($("#pageCount").val());
+		var pageParams = {currentPage:currentPage,pageSize:$.fn.coolGrid.options.pageSize,totalPage:pageCount};
+		var queryParams = [];
+		
+		for (var i = 0; i < $.fn.coolGrid.options.queryParams.length; i++){
+			queryParams.push($.fn.coolGrid.options.queryParams[i]);
+		}
+		
+		var formData = $("#coolGridQueryForm :input").serializeArray();
+		for (var i = 0; i < formData.length; i++){
+			if (formData[i].value != ''){
+				queryParams.push(formData[i]);
+			}
+		}
+		var sortParams = {sortCol:$.fn.coolGrid.options.activeSortCol,order:$.fn.coolGrid.options.sortorder};
+		loadTableData(pageParams,queryParams,sortParams);
 	}
 
 	function drawTableHeader(){
