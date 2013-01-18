@@ -24,8 +24,6 @@
 		$table.find(".add").bind("click",onAddClick);
 		$table.find(".delete").bind("click",onDeleteClick);
 		$table.find(".update").bind("click",onUpdateClick);
-		$table.find(".sortAsc").bind("click",sortAscClick);
-		$table.find(".sortDesc").bind("click",sortDescClick);
 		
 		//翻页事件绑定
 		$("#pageDiv").click(function(event){
@@ -177,7 +175,9 @@
 				finalparam,
 				function(data){
 					if (data == "success"){
-						var pageParams = {currentPage:1,pageSize:$.fn.coolGrid.options.pageSize,totalPage:1};
+						var currentPage =  parseInt($("#currentPage").val());
+						var pageCount = parseInt($("#pageCount").val());
+						var pageParams = {currentPage:currentPage,pageSize:$.fn.coolGrid.options.pageSize,totalPage:pageCount};
 						var queryParams = $.fn.coolGrid.options.queryParams;
 						var sortParams = {sortCol:$.fn.coolGrid.options.activeSortCol,order:$.fn.coolGrid.options.sortorder};
 						loadTableData(pageParams,queryParams,sortParams);
@@ -316,6 +316,8 @@
 				}
 			}
 		}
+		$table.find(".sortAsc").bind("click",sortAscClick);
+		$table.find(".sortDesc").bind("click",sortDescClick);
 	}
 	
 	function addData2Table(data)
@@ -444,7 +446,7 @@
 			if (subTableCount == 1){
 				//如果是简单表
 				var rowCount = $table.children("tr").length;
-				if (rowCount % 2 != 0)
+				if (rowCount % 2 == 0)
 					$table.append("<tr class='tabtd1'></tr>");
 				else
 					$table.append("<tr class='tabtd2'></tr>");
@@ -462,7 +464,7 @@
 			else{
 				//如果是复杂表
 				var rowCount = $("subTable0 tr").length;
-				if (rowCount % 2 != 0)
+				if (rowCount % 2 == 0)
 		    	{
 		    		for (var j = 0; j < subTableCount; j++){
 		    			$("#subTable" + j).append("<tr class='tabtd1'></tr>");

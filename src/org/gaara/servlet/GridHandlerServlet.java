@@ -140,12 +140,10 @@ public class GridHandlerServlet extends HttpServlet{
 		JSONObject pageParams = jsonObject.getJSONObject("pageParams");				
 		int currentPage = pageParams.getInt("currentPage");
 		int pageSize = pageParams.getInt("pageSize");
-		int totalPage = pageParams.getInt("totalPage");
-		int startPos = (currentPage - 1) * pageSize;
-		
+		int totalPage = pageParams.getInt("totalPage");//必须在计算startPos之前重新查询totalPage，因为currentPage可能因为delete操作比totalPage大
 		String pageSql = "select count(*) ";
 		String sql = "select ";
-		
+		pageSql = pageSql + "from " +dataTable + " where 1=1 ";
 		for(int i = 0; i < queryCols.length(); i++){
 			if(i == (queryCols.length() - 1))
 				sql = sql + queryCols.getJSONObject(i).getString("name") + " ";
@@ -154,7 +152,7 @@ public class GridHandlerServlet extends HttpServlet{
 		}
 		
 		sql = sql + "from " + dataTable + " where 1=1 ";
-		pageSql = pageSql + "from " +dataTable + " where 1=1 ";
+		
 		
 		for(int i = 0; i < queryParams.length(); i++){
 			String name = queryParams.getJSONObject(i).getString("name");
@@ -162,6 +160,24 @@ public class GridHandlerServlet extends HttpServlet{
 			sql = sql + "and " + name + "='" + value + "' ";
 			pageSql = pageSql + "and " + name + "='" + value + "' ";
 		}
+		ResultSet temp = DBHelper.executeQuery(pageSql);
+		temp.next();
+		int recordsNum = temp.getInt(1);
+		
+		if (recordsNum % pageSize == 0){
+			totalPage = recordsNum / pageSize;
+		}else{
+			totalPage = recordsNum / pageSize + 1;
+		}
+		if(totalPage == 0){
+			totalPage = 1;
+		}
+		if (currentPage > totalPage){
+			//如果是删除操作请求的数据，那么传过来的currentPage可能比totalPage大1
+			currentPage = totalPage;
+		}
+		
+		int startPos = (currentPage - 1) * pageSize;
 		
 		sql = sql + "order by " + sortCol + " " + order + " limit " + startPos + "," + pageSize;
 		System.out.println(sql);
@@ -169,9 +185,7 @@ public class GridHandlerServlet extends HttpServlet{
 		
 		
 		ResultSet resultSet = DBHelper.executeQuery(sql);
-		ResultSet temp = DBHelper.executeQuery(pageSql);
-		temp.next();
-		int recordsNum = temp.getInt(1);
+		
 
 		JSONArray records = new JSONArray();
 		int i = 0;
@@ -187,14 +201,6 @@ public class GridHandlerServlet extends HttpServlet{
 			i++;
 		}
 		
-		if (recordsNum % pageSize == 0){
-			totalPage = recordsNum / pageSize;
-		}else{
-			totalPage = recordsNum / pageSize + 1;
-		}
-		if(totalPage == 0){
-			totalPage = 1;
-		}
 		resultSet.close();
 		
 		String tmpPageParams = "{currentPage:" + currentPage + ",totalPage:" + totalPage + "}";
