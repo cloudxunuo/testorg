@@ -36,6 +36,7 @@
 			}
 		],
 		
+		saveWholeTable:true,
 		sortorder: 'asc',
 		activeSortCol:'ID',
 		pageSize: 5,
