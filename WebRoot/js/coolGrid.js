@@ -30,6 +30,7 @@
 		$table.find(".delete").bind("click",onDeleteClick);
 		$table.find(".update").bind("click",onUpdateClick);
 		
+		
 		//翻页事件绑定
 		$("#pageDiv").click(function(event){
 			var currentPage =  1;
@@ -222,7 +223,7 @@
 	    		var $tmpTR = $("#subTable" + j).children("tbody").children("tr").filter(":eq("+ clickRowIndex + ")");
 	    		var changeParams = $tmpTR.find(":input").serializeArray();
 	    		for (var key in changeParams){
-	    			if (changeParams[key]["value"] != '')
+	    			if (changeParams[key]["value"] != 'null')
 	    				data.push({name:changeParams[key]["name"],value:changeParams[key]["value"]});
 	    		}
 			}
@@ -240,9 +241,9 @@
 				params,
 				function(data){
 					if (data == "success"){
-						alert("插入成功");
+						alert("修改成功");
 					}else{
-						alert("插入失败");
+						alert("修改失败");
 					}
 				}
 		);
@@ -401,8 +402,38 @@
 				$table.append("<input type='hidden' name='"+ $.fn.coolGrid.options.queryParams[i].name +"' value='"+$.fn.coolGrid.options.queryParams[i].value +"'></input>");
 			}
 		}
+		//绑定排序事件
 		$table.find(".sortAsc").bind("click",sortAscClick);
 		$table.find(".sortDesc").bind("click",sortDescClick);
+		//绑定整表保存事件，只保存所有修改过的行
+		$("#coolGridDataTable").change(function(event){
+			var colModel = $.fn.coolGrid.options.colModel;
+			//var queryParams = $tmp.parent("tr").find("input:hidden").serializeArray();
+			var subTableCount = colModel.length;
+			
+			if (subTableCount == 1){
+				//简单表
+				var $tmp = $(event.target);
+				while($tmp.parent("tr").length == 0)
+					$tmp = $tmp.parent();
+				
+	 			if ($(event.target).parents("tr").find("a :first").html() != "save")//save行不做标记
+	  				$(event.target).parents("tr").attr("need2save","true");			
+			}else{
+				//复杂表
+				var $tmp = $(event.target);
+				while($tmp.parent("tr").length == 0)
+					$tmp = $tmp.parent();
+				
+				var $activeTR = $tmp.parent("tr").filter(":first");
+				
+				var clickRowIndex = $tmp.parent("tr").filter(":first")[0].rowIndex;
+				
+				for (var j = 0; j < subTableCount; j++){
+					
+				}
+			}
+  		});
 	}
 	
 	function addData2Table(data)
