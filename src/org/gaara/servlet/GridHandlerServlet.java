@@ -60,10 +60,61 @@ public class GridHandlerServlet extends HttpServlet{
 				out.print(updateData(jsonObject));
 				out.close();
 			}
+			else if(opParam.equals("saveTable")){
+				response.setContentType("text/html;charset=UTF-8");        		
+				PrintWriter out = response.getWriter();
+				out.print(saveTableData(jsonObject));
+				out.close();
+			}
 		}catch(Exception pe){
 			pe.printStackTrace();
 		}
 	}
+	
+	private String saveTableData(JSONObject jsonObject) throws JSONException{
+		System.out.println("saveTableData in------------------!");
+		String retString = "success";
+		
+		String dataTable = jsonObject.getString("dataTable");
+		
+		JSONArray queryParams = jsonObject.getJSONArray("queryParams");
+		JSONArray changeParams = jsonObject.getJSONArray("changeParams");
+		
+		for (int j = 0; j < queryParams.length(); j++){
+			String sql = "update " + dataTable + " set ";
+			
+			JSONArray rowQueryParams = ((JSONObject)queryParams.get(j)).getJSONArray("data");
+			JSONArray rowChangeParams = ((JSONObject)changeParams.get(j)).getJSONArray("data");
+			for (int i = 0; i < rowChangeParams.length(); i ++)
+			{
+				String name = rowChangeParams.getJSONObject(i).getString("name");
+				String value = rowChangeParams.getJSONObject(i).getString("value");
+				if (i == rowChangeParams.length() - 1){
+					sql = sql + name + "='" + value + "' ";
+				}else{
+					sql = sql + name + "='" + value + "', ";
+					
+				}
+			}
+			sql += "where 1=1 ";
+			for (int i = 0; i < rowQueryParams.length(); i ++)
+			{
+				String name = rowQueryParams.getJSONObject(i).getString("name");
+				String value = rowQueryParams.getJSONObject(i).getString("value");
+				sql = sql + "and " + name + "='" + value + "' ";
+			}
+			
+			System.out.println(sql);
+			
+			if (DBHelper.executeNonQuery(sql) == 0){
+				retString = "failed";
+				break;
+			}
+		}
+		
+		return retString;
+	}
+	
 	private String deleteData(JSONObject jsonObject) throws JSONException{
 		System.out.println("Delete in------------------!");
 		String retString = "success";

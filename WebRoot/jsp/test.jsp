@@ -15,9 +15,9 @@
 				xscrollable:false, data:
 				[
 					{type:'delete|update',display: '操作', name : 'operator', width : 60},
-					{type:'data',display: '序号', name : 'ID', width : 100, key:true, editable:false, sortable:true},
-					{type:'data',display: '状态', name : 'STATUS', width : 40},
-					{type:'data',display: '审核人', name : 'AUDITOR', width : 40}
+					{type:'data',display: '序号', name : 'ID', width : 60, key:true, editable:false, sortable:true},
+					{type:'data',display: '状态', name : 'STATUS', width : 60},
+					{type:'data',display: '审核人', name : 'AUDITOR', width : 80}
 				],
 				width:260
 			},
@@ -46,12 +46,12 @@
 				{type:'data', display:'审核日期',name:'VERIFY_DATE'}
 				]
 		},
-		saveWholeTable:true,
 		sortorder: 'asc',
 		activeSortCol:'ID',
 		width:750,
 		pageSize: 5,
 		insertable:true,
+		saveTableEnable:true,
 		databaseTableName:'detail',
 		queryParams:[{name:'MAIN_ID',value:'SQ20120903ADMI0002'}]
 		}
